@@ -1,15 +1,22 @@
-Installation infos for UiO_eeganalysis
+Installation infos for UiO_EEG_analysis
+(this toolbox has been tested unter Windows 7 with Matlab 2017a)
+
+Before setting up UiO_EEG_analysis:
+1. 	 Make sure you are using an up-to-date version of eeglab (at least V14.x)
+2.	 Install the following plugins for eeglab:
+	  - ADJUST, ICLabel, bva-io (or other import plugins), clean_rawdata, Cleanline, firfilt, iirfilt, Viewprops
 
 In principle you only have to do the following:
-1.       download the whole folder structure (UiO_eeganalysis). Maybe unzip the folder
-2.       UiO_eeganalysis into a folder without any special signs in the whole folder path (e.g. ø). Do the same with your data folder which has your EEG and lft data.
-3.       In Matlab set path to the folder and subfolders of UiO_eeganalysis
-4.       Change in the csvfile (it is in the privat folder!) the paths at least for the .vhdr file and .lft file (the letter if you want to do pci)
-5.	 If you do not have eeglab in your matlabpath do so. You can download it here: https://sccn.ucsd.edu/eeglab/
+1.       download the whole folder structure (UiO_EEG_analysis). Maybe unzip the folder
+2.       Put UiO_EEG_analysis into a folder without any special signs in the whole folder path (e.g. ø).
+3.       In Matlab set path to the folder of UiO_EEG_analysis or directly run 'eeganalysis.m' in Matlab.
+4.       Change the csvfile (it is in the privat folder!). Here you can determine all the functions which should be used and the detailed processings
+5.	 Make sure that in the csvfile the right data paths (e.g. of the .vhdr file) are provided
+6.	 Change in 'eeganalysis.m' the path to your current eeglab version
+7.	 Run eeganalysis.m and provide determine the csvfile from which UiO_EEG_analysis should read the specific information
  
 Known problems, so far:
-1.       You are using a very old EEGlab. Then you will have an error in the ‘pop_resample’ function. Please download newer version: https://sccn.ucsd.edu/eeglab/
+1.       You are using a very old EEGlab version. Then you will have an error in the ‘pop_resample’ function. Please download newer version: https://sccn.ucsd.edu/eeglab/
 2.       If you use fieldtrip, please put fieldtrip in your matlab path to the buttom. Some of the fieldtrip functions are called the same as some matlab functions. This is a problem for matlab!
-3.       If EEGlab is not in your path. Please add only the top folder of eeglab to the matlab path and ‘run’ eeglab once. Do NOT add eeglab with subfolders to the matlab path!
-4.	 If you create your own csvfile, make sure you use ';' as delimiter
+3.	 If you create your own csvfile, make sure you use ';' as delimiter
 

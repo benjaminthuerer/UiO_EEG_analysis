@@ -18,10 +18,10 @@
 % 2: import channel info
 % 3: high-/ low-pass filter
 % 4: downsample
-% 6: remove bad channels + subspace reconstruction (clean_rawdata)
-% 7: interpolate bad channels
-% 8: rereference to the average
-% 9: remove line noise (cleanline)
+% 5: remove bad channels + subspace reconstruction (clean_rawdata)
+% 6: interpolate bad channels
+% 7: rereference to the average
+% 8: remove line noise (cleanline)
 % 
 % by questions:
 % b.e.juel@medisin.uio.no
@@ -107,7 +107,7 @@ if str2double(data_struct.switch_channels) == 1
     end
 end
 
-% read channel locations according to Label in EEG.chanlocs
+%% 2. read channel locations according to Label in EEG.chanlocs or from file
 if str2double(data_struct.locsource) == 0
     disp('load channel locations from template');
     EEG = pop_chanedit(EEG, 'lookup','Standard-10-5-Cap385_witheog.elp');
@@ -146,7 +146,7 @@ end
 EEG = eeg_checkset(EEG);
 
 
-% filter the data
+%% 3. filter the data
 if ~isempty(HpassF)
     EEG = pop_eegfiltnew(EEG, 'locutoff', HpassF, 'plotfreqz', 0);
 end
@@ -154,7 +154,7 @@ if ~isempty(LpassF)
     EEG = pop_eegfiltnew(EEG, 'hicutoff', LpassF, 'plotfreqz', 0);
 end
 
-% resample with mild anti-aliasing filter for possible connectivity analysis
+%% 4. resample with mild anti-aliasing filter for possible connectivity analysis
 if ~isempty(Nsrate)
     EEG = pop_resample(EEG, Nsrate, 0.8, 0.4);
 end
@@ -177,6 +177,7 @@ end
 multPl = 50; % y-axis distance for plot
 CHlabels = {EEG.chanlocs.labels};
 
+%% 5. remove bad channels either automatically or by inspection
 % check if cleaning and channel rejection should be done automatically
 % if yes, clean data using automatic subspace reconstruction (ASR)
 if str2double(data_struct.cleaning_artifacts) == 1
@@ -337,8 +338,11 @@ if str2double(data_struct.cleaning_artifacts) == 1
                     if find(badChan==Ei)
                         idx_Ei = badChan == Ei;
                         badChan(idx_Ei) = [];
+                        goodChan(end+1) = Ei;
                     else
                         badChan(end+1) = Ei;
+                        idx_Ei = goodChan == Ei;
+                        goodChan(idx_Ei) = [];
                     end
                 end
                 close(h)
@@ -541,8 +545,11 @@ elseif str2double(data_struct.cleaning_artifacts) == 0
                     if find(badChan==Ei)
                         idx_Ei = badChan == Ei;
                         badChan(idx_Ei) = [];
+                        goodChan(end+1) = Ei;
                     else
                         badChan(end+1) = Ei;
+                        idx_Ei = goodChan == Ei;
+                        goodChan(idx_Ei) = [];
                     end
                 end
                 close(h)
@@ -595,32 +602,13 @@ end
 EEG.CHremoved = [];
 EEG.CHremoved = setdiff({chLocs.labels},{EEG.chanlocs.labels}); 
 
-% reduce line noise either by notch-filter or cleanline
-EEG.data = double(EEG.data);
-if str2double(data_struct.notch_filter) == 0
-    EEG = pop_cleanline(EEG,'Bandwidth',2, 'ChanCompIndices',[1:size(EEG.data,1)],'SignalType','Channels','computepower',0,'LineFrequencies',[LNFreq LNFreq*2],'normSpectrum',0,'p',0.05,'pad',2,'plotfigures' ...
-    ,0,'scanforlines',1,'tau',100,'verb',1,'winsize',4,'winstep',2);
-elseif str2double(data_struct.notch_filter) == 1
-    EEG = pop_eegfiltnew( EEG, LNFreq-5, LNFreq+5, [], 1 );
-    %old:
-%     filter_deg = 3;
-%     LNFnotch = [(LNFreq-5)*2/EEG.srate, (LNFreq+5)*2/EEG.srate];
-%     [b,a] = butter(filter_deg,LNFnotch,'stop');
-%     EEG.data = filter(b,a,EEG.data);
-    disp(['line noise reduced by notch filter between ' num2str(LNFreq-5) ' and ' num2str(LNFreq+5) ' Hz']);
-else
-    error('no notch_filter stated in the csv file')
-end
-
-% interpolate bad channels
+%% 6. interpolate bad channels
 EEG = pop_interp(EEG, chLocs,'spherical'); %interpolate removed channels
 
 % remove mean over channel
 EEG.data = bsxfun(@minus,EEG.data,mean(EEG.data,2));
 
-
-
-% re-reference the data either to a channel or average
+%% 7. re-reference the data either to a channel or average
 if isempty(str2num(data_struct.re_referencing))
     ChNum = strcmp({EEG.chanlocs.labels},data_struct.re_referencing);
     EEG = pop_reref( EEG, ChNum);
@@ -633,7 +621,24 @@ elseif str2double(data_struct.re_referencing) == 1
     EEG = pop_select( EEG,'nochannel',{'initialReference'});
     EEG.ref = 'average';
 end
- 
+
+%% 8. reduce line noise either by notch-filter or cleanline
+EEG.data = double(EEG.data);
+if str2double(data_struct.notch_filter) == 0
+    EEG = pop_cleanline(EEG,'Bandwidth',2, 'chanlist',[1:size(EEG.data,1)],'sigtype','Channels','computepower',1,'linefreqs',[LNFreq LNFreq*2],'normSpectrum',0,'p',0.01,'pad',2,'plotfigures' ...
+    ,0,'scanforlines',1,'tau',100,'verb',1,'winsize',4,'winstep',1);
+elseif str2double(data_struct.notch_filter) == 1
+    EEG = pop_eegfiltnew( EEG, LNFreq-5, LNFreq+5, [], 1 );
+    %old:
+%     filter_deg = 3;
+%     LNFnotch = [(LNFreq-5)*2/EEG.srate, (LNFreq+5)*2/EEG.srate];
+%     [b,a] = butter(filter_deg,LNFnotch,'stop');
+%     EEG.data = filter(b,a,EEG.data);
+    disp(['line noise reduced by notch filter between ' num2str(LNFreq-5) ' and ' num2str(LNFreq+5) ' Hz']);
+else
+    error('no notch_filter stated in the csv file')
+end
+
 % loc file entry
 logFile{end+1} = {'preprocessed',['preprocessed with (sampling rate; ' ...
     'highpassfilter; lowpassfilter; burst criterion; line noise correction: ' ...

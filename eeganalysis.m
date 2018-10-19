@@ -17,16 +17,17 @@ tmp = matlab.desktop.editor.getActive;
 cd(fileparts(tmp.Filename));
 addpath('functions\')
 
+% please change the path to your eeglab folder and make sure eeglab runs in
+% double precision mode
 addpath('Z:\Matlab_Scripts\eeglab14_1_2b\');
-
 eeglab
-
 close
 
 %%Calling the read csv file function
 
 param=readcsv(csvname);
 
+%option for parallel pool (change for to parfor in l39):
 % distcomp.feature( 'LocalUseMpiexec', false );
 % pool = parpool();
 

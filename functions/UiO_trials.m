@@ -120,8 +120,11 @@ elseif str2double(data_struct.trial_rejection) == 2
             if find(badTrial==Ei)
                 idx_Ei = badTrial == Ei;
                 badTrial(idx_Ei) = [];
+                goodTrial(end+1) = Ei;
             else
                 badTrial(end+1) = Ei;
+                idx_Ei = goodTrial == Ei;
+                goodTrial(idx_Ei) = [];
             end
         end
         close(h)

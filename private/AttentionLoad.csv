@@ -87,4 +87,4 @@ tms_interpolation;1;1;1;1;1;1;1;1;;;%%1=automatic,2=manual by inspection,3=manua
 cleaning_artifacts;1;1;1;1;1;1;1;1;;;%%1=there should be some sort of cleaning (using ASR), 0=no ASR cleaning
 channel_rejection;1;1;1;1;1;1;1;1;;;%%1=automatic by using clean_rawdata, 2=manual by visual inspection, 0=no channel rejection
 trial_rejection;0;0;0;0;0;0;0;0;;;%%1=automatic by threshold parameter (above), 2=manual by visual inspection, 0=no trial rejection
-ica_rejection;2;1;1;1;1;1;1;1;;;%%1=automatic using ADJUST, 2=manually by inspection
+ica_rejection;2;1;1;1;1;1;1;1;;;%%0=manually by inspection using ICLabel (recommended), 1=automatic using ICLabel (50% threshold of Brain), 2=automatic using ADJUST
