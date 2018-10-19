@@ -16,8 +16,6 @@
 % are possible: (1) ERD/ERS, (2) db, (3)
 % 
 % by questions:
-% b.e.juel@medisin.uio.no
-% sevenius.nilsen@gmail.com
 % benjamin.thuerer@kit.edu
 %
 

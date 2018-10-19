@@ -19,8 +19,6 @@
 % edge artifacts may occur.
 % 
 % by questions:
-% b.e.juel@medisin.uio.no
-% sevenius.nilsen@gmail.com
 % benjamin.thuerer@kit.edu
 %
 

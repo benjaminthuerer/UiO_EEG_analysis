@@ -12,8 +12,6 @@
 % step in the EEG-analysis.
 % 
 % by questions:
-% b.e.juel@medisin.uio.no
-% sevenius.nilsen@gmail.com
 % benjamin.thuerer@kit.edu
 %
 function [EEGF,LOCF] = UiO_load_data(data_struct,subj_name,file_step,specific_name)

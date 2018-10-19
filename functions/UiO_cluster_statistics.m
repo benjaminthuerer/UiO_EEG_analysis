@@ -17,8 +17,6 @@
 % column containing group IDs
 % 
 % by questions:
-% b.e.juel@medisin.uio.no
-% sevenius.nilsen@gmail.com
 % benjamin.thuerer@kit.edu
 %
 

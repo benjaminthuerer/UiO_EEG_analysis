@@ -15,8 +15,6 @@
 % 
 %
 % by questions:
-% b.e.juel@medisin.uio.no
-% sevenius.nilsen@gmail.com
 % benjamin.thuerer@kit.edu
 % 
 function [EEG,logFile] = UiO_save(data_struct,subj_name,EEG,logFile)

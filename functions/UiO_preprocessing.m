@@ -24,8 +24,6 @@
 % 8: remove line noise (cleanline)
 % 
 % by questions:
-% b.e.juel@medisin.uio.no
-% sevenius.nilsen@gmail.com
 % benjamin.thuerer@kit.edu
 % 
 function [EEG,logFile] = UiO_preprocessing(data_struct,subj_name,EEG,logFile)

@@ -1,3 +1,5 @@
+CAFEFUL: THIS IS A BETA VERSION AND STILL A WORK IN PROGRESS. MORE ADVANCED FUNCTIONS (e.g. Cluster-based-statistics, inverse-model) ARE STILL UNDER DEVELOPMENT!
+
 Installation infos for UiO_EEG_analysis
 (this toolbox has been tested unter Windows 7 with Matlab 2017a)
 
