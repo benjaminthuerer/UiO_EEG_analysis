@@ -106,6 +106,7 @@ if str2double(data_struct.switch_channels) == 1
 end
 
 %% 2. read channel locations according to Label in EEG.chanlocs or from file
+
 if str2double(data_struct.locsource) == 0
     disp('load channel locations from template');
     EEG = pop_chanedit(EEG, 'lookup','Standard-10-5-Cap385_witheog.elp');
@@ -601,6 +602,13 @@ EEG.CHremoved = [];
 EEG.CHremoved = setdiff({chLocs.labels},{EEG.chanlocs.labels}); 
 
 %% 6. interpolate bad channels
+
+%check if an additional channel should be interpolated (according to CSV)
+if str2double(data_struct.add_channel) ~= 0
+    disp(['Add channel for ' data_struct.add_channel ' for interpolation']);
+    EEG.chanloc(end+1).labels = ~isspace(data_struct.add_channel)
+    EEG = pop_chanedit(EEG, 'lookup','Standard-10-5-Cap385_witheog.elp');
+
 EEG = pop_interp(EEG, chLocs,'spherical'); %interpolate removed channels
 
 % remove mean over channel

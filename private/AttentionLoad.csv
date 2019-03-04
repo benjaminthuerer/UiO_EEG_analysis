@@ -8,13 +8,13 @@ load_data;0;0;0;0;0;0;0;0;;;%% if you want to load a specific already saved .mat
 save_folder;Z:\07_fNetworks_rest-state\data_attentional-load\Processed\;Z:\07_fNetworks_rest-state\data_attentional-load\Processed\;Z:\07_fNetworks_rest-state\data_attentional-load\Processed\;Z:\07_fNetworks_rest-state\data_attentional-load\Processed\;Z:\07_fNetworks_rest-state\data_attentional-load\Processed\;Z:\07_fNetworks_rest-state\data_attentional-load\Processed\;Z:\07_fNetworks_rest-state\data_attentional-load\Processed\;Z:\07_fNetworks_rest-state\data_attentional-load\Processed\;;;%% 0=save in the same folder as eeg-header file, else=save in the folder provided
 lftsource;Z:\07_fNetworks_rest-state\data_attentional-load\Processed\1001\leadfield.mat;Z:\07_fNetworks_rest-state\data_attentional-load\Processed\1001\leadfield.mat;Z:\07_fNetworks_rest-state\data_attentional-load\Processed\1001\leadfield.mat;Z:\07_fNetworks_rest-state\data_attentional-load\Processed\1004\leadfield.mat;Z:\07_fNetworks_rest-state\data_attentional-load\Processed\1004\leadfield.mat;Z:\07_fNetworks_rest-state\data_attentional-load\Processed\1004\leadfield.mat;Z:\07_fNetworks_rest-state\data_attentional-load\Processed\1004\leadfield.mat;Z:\07_fNetworks_rest-state\data_attentional-load\Processed\1004\leadfield.mat;;;%% lead field matrix file of MRI
 locsource;0;0;0;0;0;0;0;0;;;%% locations file for EEG channels (if 0, load template of eeglab)
-vhdrsource;Z:\07_fNetworks_rest-state\data_attentional-load\EEG\1001_20170510_0004_spontan_eeg.vhdr;Z:\07_fNetworks_rest-state\data_attentional-load\EEG\1002_20170512_0003_passiv_eeg.vhdr;Z:\07_fNetworks_rest-state\data_attentional-load\EEG\1003_20170516_0002_passiv_eeg.vhdr;Z:\07_fNetworks_rest-state\data_attentional-load\EEG\1004_20170522_0006_passiv_eeg.vhdr;Z:\07_fNetworks_rest-state\data_attentional-load\EEG\1006_20170523_0002_passiv_eeg.vhdr;Z:\07_fNetworks_rest-state\data_attentional-load\EEG\1007_20170529_0002_passiv_eeg.vhdr;Z:\07_fNetworks_rest-state\data_attentional-load\EEG\1008_20170523_0005_passiv_eeg.vhdr;Z:\07_fNetworks_rest-state\data_attentional-load\EEG\1011_20170612_0004_eeg_passiv.vhdr;;;
-UiO_TMS_correction;0;0;0;0;0;0;0;0;;;
-UiO_preprocessing;0;0;0;0;0;0;0;0;;;
-UiO_trials;0;0;0;0;0;0;0;0;;;
-UiO_pca;0;0;0;0;0;0;0;0;;;
-UiO_ica;0;0;0;0;0;0;0;0;;;
-UiO_ica_cleaning;1;0;0;0;0;0;0;0;;;
+vhdrsource;Z:\07_fNetworks_rest-state\data_attentional-load\EEG\1001_20170510_0005_load_tms.vhdr;Z:\07_fNetworks_rest-state\data_attentional-load\EEG\1002_20170512_0003_passiv_eeg.vhdr;Z:\07_fNetworks_rest-state\data_attentional-load\EEG\1003_20170516_0002_passiv_eeg.vhdr;Z:\07_fNetworks_rest-state\data_attentional-load\EEG\1004_20170522_0006_passiv_eeg.vhdr;Z:\07_fNetworks_rest-state\data_attentional-load\EEG\1006_20170523_0002_passiv_eeg.vhdr;Z:\07_fNetworks_rest-state\data_attentional-load\EEG\1007_20170529_0002_passiv_eeg.vhdr;Z:\07_fNetworks_rest-state\data_attentional-load\EEG\1008_20170523_0005_passiv_eeg.vhdr;Z:\07_fNetworks_rest-state\data_attentional-load\EEG\1011_20170612_0004_eeg_passiv.vhdr;;;
+UiO_TMS_correction;1;0;0;0;0;0;0;0;;;
+UiO_preprocessing;2;0;0;0;0;0;0;0;;;
+UiO_trials;3;0;0;0;0;0;0;0;;;
+UiO_pca;4;0;0;0;0;0;0;0;;;
+UiO_ica;5;0;0;0;0;0;0;0;;;
+UiO_ica_cleaning;6;0;0;0;0;0;0;0;;;
 UiO_wavelet;0;0;0;0;0;0;0;0;;;
 UiO_norm_power;0;0;0;0;0;0;0;0;;;
 UiO_inverse_model;0;0;0;0;0;0;0;0;;;
@@ -34,7 +34,7 @@ UiO_summaryplot;0;0;0;0;0;0;0;0;;;
 %%This is line 34. Do not cross%%;;;;;;;;;;;
 %%Preprocessing_parameters%%;;;;;;;;;;;
 continuous;yes;yes;yes;yes;yes;yes;yes;yes;;;%should the data processed as continuous data (yes) or does it have triggers for epoching (no)
-trigger_name;;;;;;;;;;;%if data should become epoched, state the trigger (e.g. 'S1')
+trigger_name;R128;;;;;;;;;;%if data should become epoched, state the trigger (e.g. 'S1')
 downsample_rate;1000;1000;1000;1000;1000;1000;1000;1000;;;%what do you want to downsample to, in hz
 interpolate_lower_tms;-1;-1;-1;-1;-1;-1;-1;-1;;;%interpolation lower end
 interpolate_higher_tms;6;6;6;6;6;6;6;6;;;%interpolation higher end
@@ -83,8 +83,8 @@ baseline_start;-1500;-1500;-1500;-1500;-1500;-1500;-1500;-1500;;;%% starting poi
 baseline_method;1;1;1;1;1;1;1;1;;;%% option how frequency power is normalized. 1: percentage change (ERD/ERS), 2: decibel (db)
 ;;;;;;;;;;;
 %%Automatic_rejection_parameters%%;;;;;;;;;;;
-tms_interpolation;1;1;1;1;1;1;1;1;;;%%1=automatic,2=manual by inspection,3=manual by csv-input
+tms_interpolation;2;1;1;1;1;1;1;1;;;%%1=automatic,2=manual by inspection,3=manual by csv-input
 cleaning_artifacts;1;1;1;1;1;1;1;1;;;%%1=there should be some sort of cleaning (using ASR), 0=no ASR cleaning
 channel_rejection;1;1;1;1;1;1;1;1;;;%%1=automatic by using clean_rawdata, 2=manual by visual inspection, 0=no channel rejection
-trial_rejection;0;0;0;0;0;0;0;0;;;%%1=automatic by threshold parameter (above), 2=manual by visual inspection, 0=no trial rejection
+trial_rejection;2;0;0;0;0;0;0;0;;;%%1=automatic by threshold parameter (above), 2=manual by visual inspection, 0=no trial rejection
 ica_rejection;2;1;1;1;1;1;1;1;;;%%0=manually by inspection using ICLabel (recommended), 1=automatic using ICLabel (50% threshold of Brain), 2=automatic using ADJUST

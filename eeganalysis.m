@@ -66,13 +66,9 @@ for sbj = 1:size(fldnames1,1)
                 x_diff = setdiff(x_it,x);
                 diff_x_diff = diff(x_diff);
                 for n_comma = 1:length(diff_x_diff)
-                    if n_comma == 1
-                        n(si,n_comma) = str2double(numbers_string(x_diff(1:diff_x_diff(n_comma)-1)));
-                    else
-                        n(si,n_comma) = str2double(numbers_string(x_diff(diff_x_diff(n_comma-1):diff_x_diff(n_comma)-1)));
-                    end
+                    n(si,n_comma) = str2double(numbers_string(x_diff(n_comma):x_diff(n_comma)-1+diff_x_diff(n_comma)-1));
                     if length(diff_x_diff) == n_comma
-                        n(si,n_comma+1) = str2double(numbers_string(x_diff(diff_x_diff(n_comma):end)));
+                        n(si,n_comma+1) = str2double(numbers_string(x_diff(n_comma+1:end)));
                     end
                 end
             end
