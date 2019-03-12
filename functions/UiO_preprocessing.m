@@ -606,7 +606,7 @@ EEG.CHremoved = setdiff({chLocs.labels},{EEG.chanlocs.labels});
 %check if an additional channel should be interpolated (according to CSV)
 if str2double(data_struct.add_channel) ~= 0
     disp(['Add channel for ' data_struct.add_channel ' for interpolation']);
-    EEG.chanloc(end+1).labels = ~isspace(data_struct.add_channel);
+    EEG.chanlocs(end+1).labels = ~isspace(data_struct.add_channel);
     EEG = pop_chanedit(EEG, 'lookup','Standard-10-5-Cap385_witheog.elp');
 end
 

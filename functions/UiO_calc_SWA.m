@@ -100,6 +100,5 @@ for chan_i = 1:size(EEG.data,1)
     [numb_neg(chan_i)] = nanmean(slow_waves(chan_i).neg_peaks);
 end
  
-    
 end
 

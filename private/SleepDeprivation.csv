@@ -31,7 +31,6 @@ UiO_summaryplot;0;0;;
 ;;;;
 ;;;;
 ;;;;
-;;;;
 %%This is line 34. Do not cross%%;;;;
 %%Preprocessing_parameters%%;;;;
 continuous;yes;yes;;%should the data processed as continuous data (yes) or does it have triggers for epoching (no)

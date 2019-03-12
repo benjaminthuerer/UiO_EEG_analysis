@@ -43,5 +43,4 @@ EEG.SWA_header = results_header;
 % loc file entry
 logFile{end+1} = {'SWA_calculated',['SWA is calculated for an epoch of ' num2str(epoch_length) ...
     ' s.']};
-
 end
