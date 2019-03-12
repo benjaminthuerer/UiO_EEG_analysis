@@ -54,10 +54,10 @@ plot_always;0;0;;%%1=plots data after every processing step, 0 = no plotting, if
 %%Switch channels;;;;
 switch_channels;0;0;;"%Do you want to switch channel locations? 0 = no; 1 = yes"
 switch_names;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;;% state the channels. First channel which should be replaced by the second channel (eg., AF8, FCz, AF7, Afz)
-add_channel;Pz;0;;% Adds channel location for later interpolation (e.g. Pz). Or does not add any channel (e.g. 0)
+add_channel;Pz;Pz;;% Adds channel location for later interpolation (e.g. Pz). Or does not add any channel (e.g. 0)
 ;;;;
 %%Remove channels;;;;
-remove_channels;EMG1;EMG1;;"%Do you want to remove channels from analysis (EMG?)? 0 = no; state channels (eg. EMGh, EMGn) = otherwise"
+remove_channels;EMG1, Pz;EMG1, Pz;;"%Do you want to remove channels from analysis (EMG?)? 0 = no; state channels (eg. EMGh, EMGn) = otherwise"
 ;;;;
 %%PCI;;;;
 baseline_sources;200;200;;%%baseline length for inverse model and bootstraping
