@@ -14,7 +14,7 @@
 % 6: calculate parameters
 
 %% what about SWsaturation?
-function [number, timing, duration, ptp_amp, numb_pos, numb_neg] = UiO_calc_SWA(EEG, epoch_length, marker)
+function [number, duration, ptp_amp, numb_pos, numb_neg] = UiO_calc_SWA(EEG, epoch_length, marker)
 
 % find indices of mastoid channels and reref to the average mastoid
 ind_M1 = strcmp({EEG.chanlocs.labels},"TP9");
@@ -44,7 +44,7 @@ Ws = 10/(EEG.srate/2); %stop band
 [n, Wn]=cheb2ord(Wp,Ws,Rp,Rs);
 [z,p,k]=cheby2(n,Rs,Wn); %design cheby type 2 filter
 [sosbp,gbp] = zp2sos(z,p,k);  %create second-order representation (looks better)
-freqz(sosbp, 2^16, EEG.srate) %plot in Hz not rad/sample
+%freqz(sosbp, 2^16, EEG.srate) %plot in Hz not rad/sample
 EEG.data =  filtfilt(sosbp, gbp, EEG.data); %apply filter design to data
 
 % epoch data
@@ -67,24 +67,54 @@ ptp_amp = zeros(size(EEG.data,1),1);
 numb_pos = zeros(size(EEG.data,1),1);
 numb_neg = zeros(size(EEG.data,1),1);
 num_iterations = 0;
+sign_data = diff(sign(EEG.data),[],2);
 
 for chan_i = 1:size(EEG.data,1)
     slow_waves(chan_i).duration = [];
     slow_waves(chan_i).amplitude = [];
     slow_waves(chan_i).pos_peaks = [];
     slow_waves(chan_i).neg_peaks = [];
-    [~,idx_zeros] = findpeaks(diff(abs(EEG.data(chan_i,:))));
+
+    
+    %% use sign instaed of while loop
+     %check whether diff is working on matrix
+    idx_zeros = find(sign_data(chan_i,:) ~=0);
+  
     i = 1;
     while i <= length(idx_zeros)-2
         %% diff must be calculated on times not on indices (idx * srate) or (EEG.times(idx_zeros))
-        diff_zeros = EEG.times(idx_zeros(i+2)) - EEG.times(idx_zeros(i)); %check for ms / s / sampling rate
-        ptp = max(EEG.data(chan_i,idx_zeros(i):idx_zeros(i+2))) - min(EEG.data(chan_i,idx_zeros(i):idx_zeros(i+2))); % check for muV
-        if diff_zeros >= 250 && diff_zeros <= 1000 && ptp > 75
+        diff_zeros = EEG.times(idx_zeros(i+2)) - EEG.times(idx_zeros(i)); %in ms
+        ptp = max(EEG.data(chan_i,idx_zeros(i):idx_zeros(i+2))) - min(EEG.data(chan_i,idx_zeros(i):idx_zeros(i+2)));
+        
+        % definition of SW: between 250 and 1000 ms long and peak-to-peak > 75 myV
+        if diff_zeros >= 250 && diff_zeros <= 1000 && ptp > 75 
             slow_waves(chan_i).(['sw' num2str(i)]) = EEG.data(chan_i,idx_zeros(i):idx_zeros(i+2));
             slow_waves(chan_i).duration(end+1) = length(slow_waves(chan_i).(['sw' num2str(i)]))*(1000/EEG.srate); % SW duration in ms
             slow_waves(chan_i).amplitude(end+1) = ptp; % SW peak-to-peak amplitute
-            slow_waves(chan_i).pos_peaks(end+1) = length(findpeaks(EEG.data(chan_i,idx_zeros(i):idx_zeros(i+2))));
-            slow_waves(chan_i).neg_peaks(end+1) = length(findpeaks(EEG.data(chan_i,idx_zeros(i):idx_zeros(i+2))*-1));
+            
+            % check whether slow wave starts with negative or positive part
+            if sign(mean(EEG.data(chan_i,idx_zeros(i):idx_zeros(i+1)))) == 1
+                % check if more than 3 samples available
+                if idx_zeros(i+1)-idx_zeros(i) < 3
+                    slow_waves(chan_i).pos_peaks(end+1) = 1;
+                elseif idx_zeros(i+2)-idx_zeros(i+1) < 3
+                    slow_waves(chan_i).neg_peaks(end+1) = 1;
+                else
+                    slow_waves(chan_i).pos_peaks(end+1) = length(findpeaks(EEG.data(chan_i,idx_zeros(i):idx_zeros(i+1))));
+                    slow_waves(chan_i).neg_peaks(end+1) = length(findpeaks(EEG.data(chan_i,idx_zeros(i+1):idx_zeros(i+2))*-1));
+                end
+            else
+                % check if more than 3 samples available
+                if idx_zeros(i+1)-idx_zeros(i) < 3
+                    slow_waves(chan_i).pos_peaks(end+1) = 1;
+                elseif idx_zeros(i+2)-idx_zeros(i+1) < 3
+                    slow_waves(chan_i).neg_peaks(end+1) = 1;
+                else
+                    slow_waves(chan_i).pos_peaks(end+1) = length(findpeaks(EEG.data(chan_i,idx_zeros(i):idx_zeros(i+1))*-1));
+                    slow_waves(chan_i).neg_peaks(end+1) = length(findpeaks(EEG.data(chan_i,idx_zeros(i+1):idx_zeros(i+2))));
+                end
+            end
+            
             num_iterations = num_iterations+1;
             i = i+2;
         else
@@ -93,7 +123,7 @@ for chan_i = 1:size(EEG.data,1)
     end
     
     % calculate parameters for each channel
-    [number(chan_i)] = num_iterations / (epoch_length/60); %number of SW per minute (60sec)!
+    [number(chan_i)] = length(slow_waves(chan_i).duration) / (epoch_length/60); %number of SW per minute (60sec)!
     [duration(chan_i)] = nanmean(slow_waves(chan_i).duration);
     [ptp_amp(chan_i)] = nanmean(slow_waves(chan_i).amplitude);
     [numb_pos(chan_i)] = nanmean(slow_waves(chan_i).pos_peaks);

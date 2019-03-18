@@ -26,16 +26,18 @@ EEG.data = double(EEG.data);
 
 epoch_length = str2double(data_struct.SW_epoch); %epoch length according to CSV
 %Find latency for marker either from real marker or manually from CSV
+
+%% be aware that this works in samples and we are resampling!!!
 if str2double(data_struct.SW_marker) == 0
     marker = str2double(data_struct.SW_noMarker);
 else
-    marker = EEG.event(strcmp({EEG.event.type},"Wake")).latency;
+    marker = EEG.times(round(EEG.event(find(strcmp({EEG.event.type},"Wake"))).latency));  % get time in ms for sample of marker
 end
 
-[number, timing, duration, ptp_amp, numb_pos, numb_neg] = UiO_calc_SWA(EEG, epoch_length, marker);
+[number, duration, ptp_amp, numb_pos, numb_neg] = UiO_calc_SWA(EEG, epoch_length, marker);
 
-results = [number,timing,duration,ptp_amp,numb_pos,numb_neg];
-results_header = ["number","timing","duration","ptp_amp","numb_pos","numb_neg"];
+results = [number,duration,ptp_amp,numb_pos,numb_neg];
+results_header = ["number","duration","ptp_amp","numb_pos","numb_neg"];
 
 EEG.SWA_res = results;
 EEG.SWA_header = results_header;

@@ -182,7 +182,7 @@ CHlabels = {EEG.chanlocs.labels};
 if str2double(data_struct.cleaning_artifacts) == 1
     if str2double(data_struct.channel_rejection) == 2
         % clean data without removing any channel or time-bins
-        EEG = clean_rawdata(EEG, 'off', [0.25 0.75], 'off', 'off', BurstC, 'off');
+        EEG = clean_rawdata(EEG, 'off', [0.25 0.5], 'off', 'off', BurstC, 'off');
         
         % run clean_rawdata only to find bad channels
         disp('cleaning channels again to compare bad channels');
@@ -384,14 +384,14 @@ if str2double(data_struct.cleaning_artifacts) == 1
         EEG.chanlocs(:,badChan) = [];
     elseif str2double(data_struct.channel_rejection) == 1
         % clean the data but do not filter or remove time-bins
-        EEG = clean_rawdata(EEG, [], [0.25 0.75], 0.88, [], BurstC, 'off');       
+        EEG = clean_rawdata(EEG, 10, [0.25 0.5], 0.85, 4, BurstC, 'off');       
     else
         warning('no correct channel rejection type provided. default cleaning with channel rejection on')
     end
     
 % if no cleaning should be done but channel rejection manually:
 elseif str2double(data_struct.cleaning_artifacts) == 0
-    if str2double(data_struct.channel_rejection) == 1
+    if str2double(data_struct.channel_rejection) == 2
         % clean channel manually by visual inspection and do not clean data
         % epoch the data and compute the average over trials
         if strcmp(data_struct.continuous,'no')
@@ -590,6 +590,12 @@ elseif str2double(data_struct.cleaning_artifacts) == 0
         EEG.nbchan = EEG.nbchan-length(badChan);
         EEG.data(badChan,:) = [];
         EEG.chanlocs(:,badChan) = [];
+    elseif str2double(data_struct.channel_rejection) == 1
+        % remove channels but do not clean the data
+        EEG = clean_rawdata(EEG, 10, [0.25 0.5], 'off', 4, 'off', 'off'); 
+    elseif str2double(data_struct.channel_rejection) == 0
+        % no cleaning wished by CSV file
+        disp('No cleaning of DATA and no channel rejection done!')
     else
         warning('no cleaning and nor channel rejection done. This might mess up a later re-referencing')
     end
@@ -631,19 +637,21 @@ end
 
 %% 8. reduce line noise either by notch-filter or cleanline
 EEG.data = double(EEG.data);
-if str2double(data_struct.notch_filter) == 0
-    EEG = pop_cleanline(EEG,'Bandwidth',2, 'chanlist',[1:size(EEG.data,1)],'sigtype','Channels','computepower',1,'linefreqs',[LNFreq LNFreq*2],'normSpectrum',0,'p',0.01,'pad',2,'plotfigures' ...
-    ,0,'scanforlines',1,'tau',100,'verb',1,'winsize',4,'winstep',1);
-elseif str2double(data_struct.notch_filter) == 1
-    EEG = pop_eegfiltnew( EEG, LNFreq-5, LNFreq+5, [], 1 );
-    %old:
-%     filter_deg = 3;
-%     LNFnotch = [(LNFreq-5)*2/EEG.srate, (LNFreq+5)*2/EEG.srate];
-%     [b,a] = butter(filter_deg,LNFnotch,'stop');
-%     EEG.data = filter(b,a,EEG.data);
-    disp(['line noise reduced by notch filter between ' num2str(LNFreq-5) ' and ' num2str(LNFreq+5) ' Hz']);
-else
-    error('no notch_filter stated in the csv file')
+if LNFreq < LpassF+5
+    if str2double(data_struct.notch_filter) == 0
+        EEG = pop_cleanline(EEG,'Bandwidth',2, 'chanlist',[1:size(EEG.data,1)],'sigtype','Channels','computepower',1,'linefreqs',[LNFreq LNFreq*2],'normSpectrum',0,'p',0.01,'pad',2,'plotfigures' ...
+        ,0,'scanforlines',1,'tau',100,'verb',1,'winsize',4,'winstep',1);
+    elseif str2double(data_struct.notch_filter) == 1
+        EEG = pop_eegfiltnew( EEG, LNFreq-5, LNFreq+5, [], 1 );
+        %old:
+    %     filter_deg = 3;
+    %     LNFnotch = [(LNFreq-5)*2/EEG.srate, (LNFreq+5)*2/EEG.srate];
+    %     [b,a] = butter(filter_deg,LNFnotch,'stop');
+    %     EEG.data = filter(b,a,EEG.data);
+        disp(['line noise reduced by notch filter between ' num2str(LNFreq-5) ' and ' num2str(LNFreq+5) ' Hz']);
+    else
+        error('no notch_filter stated in the csv file')
+    end
 end
 
 % loc file entry
