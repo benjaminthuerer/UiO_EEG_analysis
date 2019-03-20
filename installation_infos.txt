@@ -10,15 +10,15 @@ Before setting up UiO_EEG_analysis:
 
 In principle you only have to do the following:
 1.       download the whole folder structure (UiO_EEG_analysis). Maybe unzip the folder
-2.       Put UiO_EEG_analysis into a folder without any special signs in the whole folder path (e.g. ø).
+2.       Put UiO_EEG_analysis into a folder without any special signs in the whole folder path (e.g. Ã¸).
 3.       In Matlab set path to the folder of UiO_EEG_analysis or directly run 'eeganalysis.m' in Matlab.
 4.       Change the csvfile (it is in the privat folder!). Here you can determine all the functions which should be used and the detailed processings
 5.	 Make sure that in the csvfile the right data paths (e.g. of the .vhdr file) are provided
-6.	 Change in 'eeganalysis.m' the path to your current eeglab version
-7.	 Run eeganalysis.m and provide determine the csvfile from which UiO_EEG_analysis should read the specific information
+6.	 Change in 'eeganalysis.m' the path to your current eeglab version!!!
+7.	 Run eeganalysis.m and provide the csvfile from which UiO_EEG_analysis should read the specific information
  
 Known problems, so far:
-1.       You are using a very old EEGlab version. Then you will have an error in the ‘pop_resample’ function. Please download newer version: https://sccn.ucsd.edu/eeglab/
+1.       You are using a very old EEGlab version. Then you will have an error in the â€˜pop_resampleâ€™ function. Please download newer version: https://sccn.ucsd.edu/eeglab/
 2.       If you use fieldtrip, please put fieldtrip in your matlab path to the buttom. Some of the fieldtrip functions are called the same as some matlab functions. This is a problem for matlab!
 3.	 If you create your own csvfile, make sure you use ';' as delimiter
 
