@@ -88,7 +88,7 @@ for chan_i = 1:size(EEG.data,1)
         ptp = max(EEG.data(chan_i,idx_zeros(i):idx_zeros(i+2))) - min(EEG.data(chan_i,idx_zeros(i):idx_zeros(i+2)));
         
         % definition of SW: between 250 and 1000 ms long and peak-to-peak > 75 myV
-        if diff_zeros >= SW_length(1) && diff_zeros <= SW_length(2) && ptp > SW_amplitude 
+        if diff_zeros >=  && diff_zeros <= 1000 && ptp > 75 
             slow_waves(chan_i).(['sw' num2str(i)]) = EEG.data(chan_i,idx_zeros(i):idx_zeros(i+2));
             slow_waves(chan_i).duration(end+1) = length(slow_waves(chan_i).(['sw' num2str(i)]))*(1000/EEG.srate); % SW duration in ms
             slow_waves(chan_i).amplitude(end+1) = ptp; % SW peak-to-peak amplitute

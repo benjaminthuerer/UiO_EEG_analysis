@@ -10,7 +10,7 @@ lftsource;0;0;;%% lead field matrix file of MRI
 locsource;0;0;;%% locations file for EEG channels (if 0, load template of eeglab)
 vhdrsource;Z:\08_Study_Sleep-deprivation\01_Data\EEG_data\sd1022\sleep_sd1022_test1_110219.vhdr;Z:\08_Study_Sleep-deprivation\01_Data\EEG_data\sd1022\sleep_sd1022_test2_110219.vhdr;;
 UiO_TMS_correction;0;0;;
-UiO_preprocessing;0;0;;
+UiO_preprocessing;1;1;;
 UiO_trials;0;0;;
 UiO_pca;0;0;;
 UiO_ica;0;0;;
@@ -20,8 +20,8 @@ UiO_norm_power;0;0;;
 UiO_inverse_model;0;0;;
 UiO_connectivity;0;0;;
 UiO_pci;0;0;;
-UiO_SWA;0;1;;
-UiO_save;0;2;;%%if you want to run a function several times, just add the indices after a comma
+UiO_SWA;2;2;;
+UiO_save;3;3;;%%if you want to run a function several times, just add the indices after a comma
 UiO_plot;0;0;;
 UiO_summaryplot;0;0;;
 ;;;;
@@ -74,10 +74,12 @@ wavelet_f_numb;40;40;;%% number of bins between lower and upper frequency edge (
 wavelet_cycles;5,19;5,19;;%% number of lower and upper cycles (should not be lower than 3 and higher than 20). This changes logarithmic with frequency
 mean_trials;1,2-30;1,2-30;;%% wavelet function will compute the mean over the trials wich are stated here. Commata and hyphes are allowed (e.g. 1,2,3-5,10-20)
 ;;;;
-%%SWA parameter;;;;
+"%%SWA parameter and for slow-wave power (1-4hz; run UiO_norm_power WITHOUT UiO_wavelet or UiO_SWA)";;;;
 SW_marker;Wake;Wake;;%% If there is a marker for waking provide marker name (e.g. Wake). Otherwise, if 0 SW_noMarker will be used
 SW_noMarker;0;0;;"%%provide time_point for ""wakening"" in ms (e.g. 203440). SW will be computed in the epoch before marker. This will ONLY be used if SW_marker == 0"
 SW_epoch;40;40;;%% length of epoch for which SWs should be computed in s (e.g. 20)
+SW_amplitude;75;75;;%% Minimum amplitude to be defined as slow-wave (e.g. 75myV)
+SW_duration;250-1000;250-1000;;%% Minimum and Maximum duration to be defined as slow-wave (e.g. 250-1000 ms)
 ;;;;
 %%Connectivity computation;;;;
 PLIwindow_start;-400;-400;;%% start time in ms for connectivity computation

@@ -119,7 +119,7 @@ if ndims(EEG.data) > 2
 
     % now, good_trials are determined but we already deleted bad trials. So
     % we have to add the deleted trials before cutting for good-trials
-    for i = 1:length(EEG.accBadEpochs);
+    for i = 1:length(EEG.accBadEpochs)
         if find(EEG.accBadEpochs(i) == good_trials)
             good_trials(EEG.accBadEpochs(i) == good_trials) = [];
         end

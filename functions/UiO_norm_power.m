@@ -35,6 +35,7 @@ if isempty(EEG)
     end
 end
 
+
 % get baseline range from csv-file. Note: length and start must be in ms
 bl_range = [str2double(data_struct.baseline_start) (str2double(data_struct.baseline_start) + str2double(data_struct.baseline_length))];
 
