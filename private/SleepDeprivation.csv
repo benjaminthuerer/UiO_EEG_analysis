@@ -4,7 +4,7 @@ experiment;SleepDeprivation;SleepDeprivation;;
 age;0;0;;
 sex;0;0;;
 iq;0;0;;
-load_data;0;0;;%% if you want to load a specific already saved .mat file state here the name (e.g. 's101_s1_after_pca.mat'
+load_data;0;0;;%% if you want to load a specific already saved .mat file state here the name (e.g. 's101_s1_after_pca.mat')
 save_folder;Z:\08_Study_Sleep-deprivation\01_Data\analyzed_data\EEG\;Z:\08_Study_Sleep-deprivation\01_Data\analyzed_data\EEG\;;%% 0=save in the same folder as eeg-header file, else=save in the folder provided
 lftsource;0;0;;%% lead field matrix file of MRI
 locsource;0;0;;%% locations file for EEG channels (if 0, load template of eeglab)
@@ -74,7 +74,7 @@ wavelet_f_numb;40;40;;%% number of bins between lower and upper frequency edge (
 wavelet_cycles;5,19;5,19;;%% number of lower and upper cycles (should not be lower than 3 and higher than 20). This changes logarithmic with frequency
 mean_trials;1,2-30;1,2-30;;%% wavelet function will compute the mean over the trials wich are stated here. Commata and hyphes are allowed (e.g. 1,2,3-5,10-20)
 ;;;;
-"%%SWA parameter and for slow-wave power (1-4hz; run UiO_norm_power WITHOUT UiO_wavelet or UiO_SWA)";;;;
+%%SWA parameter;;;;
 SW_marker;Wake;Wake;;%% If there is a marker for waking provide marker name (e.g. Wake). Otherwise, if 0 SW_noMarker will be used
 SW_noMarker;0;0;;"%%provide time_point for ""wakening"" in ms (e.g. 203440). SW will be computed in the epoch before marker. This will ONLY be used if SW_marker == 0"
 SW_epoch;40;40;;%% length of epoch for which SWs should be computed in s (e.g. 20)

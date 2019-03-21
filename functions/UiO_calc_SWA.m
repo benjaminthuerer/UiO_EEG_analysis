@@ -14,7 +14,7 @@
 % 6: calculate parameters
 
 %% what about SWsaturation?
-function [number, duration, ptp_amp, numb_pos, numb_neg] = UiO_calc_SWA(EEG, epoch_length, marker, SW_length, SW_amplitude)
+function [number, duration, ptp_amp, numb_pos, numb_neg, power] = UiO_calc_SWA(EEG, epoch_length, marker, SW_length, SW_amplitude)
 
 % find indices of mastoid channels and reref to the average mastoid
 ind_M1 = strcmp({EEG.chanlocs.labels},"TP9");
@@ -67,6 +67,7 @@ duration = zeros(size(EEG.data,1),1);
 ptp_amp = zeros(size(EEG.data,1),1);
 numb_pos = zeros(size(EEG.data,1),1);
 numb_neg = zeros(size(EEG.data,1),1);
+power = zeros(size(EEG.data,1),1);
 num_iterations = 0;
 sign_data = diff(sign(EEG.data),[],2);
 
@@ -129,6 +130,7 @@ for chan_i = 1:size(EEG.data,1)
     [ptp_amp(chan_i)] = nanmean(slow_waves(chan_i).amplitude);
     [numb_pos(chan_i)] = nanmean(slow_waves(chan_i).pos_peaks);
     [numb_neg(chan_i)] = nanmean(slow_waves(chan_i).neg_peaks);
+    [power(chan_i)] = nanmean(EEG.data(chan_i,:),2);
 end
  
 end
