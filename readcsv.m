@@ -1,9 +1,9 @@
-function [param] = readcsv(csvname)
+function [param] = readcsv(csvname, csvpath)
 %READCSV This function reads a csvfile 
 %and puts its data into a struct, dynamically
 % 'C:\Users\Promotion\Matlab_Scripts\Consciousness\EEG_processing\UiO_eeganalysis\csvs\'
 %%Read file
-fileName=[csvname '.csv']; %Specifies the csvs folder as storage
+fileName=[csvpath csvname '.csv']; %Specifies the csvs folder as storage
 fid = fopen(fileName,'r');   
   lineArray = cell(200,1);     % Preallocate a cell matrix
   lineIndex = 1;               % Iterator, cause while loops are quicker

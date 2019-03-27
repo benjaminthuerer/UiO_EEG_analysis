@@ -10,7 +10,7 @@ function [] = eeganalysis(sbj,csvname,fldnames1,param)
 
 clear
 
-csvname = uigetfile('*.csv','choose the csv data in private folder (change file format to "All Files")');
+[csvname, csvpath] = uigetfile('*.csv','choose the csv data in private folder (change file format to "All Files")');
 csvname(end-3:end) = [];
 
 tmp = matlab.desktop.editor.getActive;
@@ -25,7 +25,7 @@ close
 
 %%Calling the read csv file function
 
-param=readcsv(csvname);
+param=readcsv(csvname, csvpath);
 
 %option for parallel pool (change for to parfor in l39):
 % distcomp.feature( 'LocalUseMpiexec', false );
