@@ -130,7 +130,7 @@ for chan_i = 1:size(EEG.data,1)
     [ptp_amp(chan_i)] = nanmean(slow_waves(chan_i).amplitude);
     [numb_pos(chan_i)] = nanmean(slow_waves(chan_i).pos_peaks);
     [numb_neg(chan_i)] = nanmean(slow_waves(chan_i).neg_peaks);
-    [power(chan_i)] = nanmean(EEG.data(chan_i,:)^2,2);
+    [power(chan_i)] = nanmean(EEG.data(chan_i,:).^2,2);
 end
  
 end

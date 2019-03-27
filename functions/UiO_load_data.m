@@ -58,6 +58,9 @@ end
 disp(['load data: ' load_name]);
 load([load_file '.mat']);
 
+% switch to double precision
+EEG.data = double(EEG.data);
+
 exist EEG;
 if ans == 0
     loc_error = loc_error+1;

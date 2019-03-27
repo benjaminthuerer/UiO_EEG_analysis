@@ -75,6 +75,9 @@ else
     end    
 end
 
+%save in single to save space
+EEG.data = single(EEG.data);
+
 disp(['save file: ' save_name]);
 % EEG.data = single(EEG.data);
 save([save_file '.mat'],'EEG','-v7.3');
