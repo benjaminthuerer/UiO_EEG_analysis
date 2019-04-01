@@ -20,10 +20,6 @@ EEG.icasphere = [];
 EEG.icaweights = [];
 EEG.icachansind = [];
 
-
-% make sure data is in double
-EEG.data = double(EEG.data);
-
 epoch_length = str2double(data_struct.SW_epoch); %epoch length according to CSV
 %Find latency for marker either from real marker or manually from CSV
 

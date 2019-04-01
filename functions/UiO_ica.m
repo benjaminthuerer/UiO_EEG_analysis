@@ -35,9 +35,6 @@ if isempty(EEG)
     end
 end
 
-% change to double precision
-EEG.data = double(EEG.data);
-
 dataRank = double(reshape(EEG.data,size(EEG.data,1),size(EEG.data,2)*size(EEG.data,3)));
 rankIDX = rank(dataRank);
 

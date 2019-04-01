@@ -23,9 +23,6 @@ if nargin < 4
     loc_error = 0;
 else
     load_name = data_struct.load_data;
-    if strfind(load_name,'.mat')
-        load_name = load_name(1:end-4);
-    end
     % can not read loc file because loc file might not available or
     % different name then eeg-file...
     loc_error = 1;
@@ -40,7 +37,6 @@ if str2double(data_struct.save_folder) == 0
         char_idx = strfind(data_struct.vhdrsource,'\');
     end
     data_path = data_struct.vhdrsource(1:char_idx(end));
-    load_file = [data_path load_name];
     load_loc = [data_path loc_name];
 else
     if isempty(strfind(data_struct.save_folder,'\'))
@@ -49,16 +45,14 @@ else
         char_idx = strfind(data_struct.save_folder,'\');
     end
     data_path = [data_struct.save_folder(1:char_idx(end))];
-    load_file = [data_path subj_name{1} '\' data_struct.session '\'  load_name];
     load_loc = [data_path subj_name{1} '\' data_struct.session '\' loc_name];
 end
 
-
-
 disp(['load data: ' load_name]);
-load([load_file '.mat']);
+EEG = pop_loadset('filename',load_name,'filepath',data_path);
 
 % switch to double precision
+disp('convert to double precision')
 EEG.data = double(EEG.data);
 
 exist EEG;

@@ -35,7 +35,7 @@ end
 
 
 % change to double precision and check if continous or epoched data
-ObsData = double(EEG.data);
+ObsData = EEG.data;
 if ndims(EEG.data) == 3
     ObsData = reshape(ObsData,size(ObsData,1),size(ObsData,2)*size(ObsData,3));
 end
