@@ -3,7 +3,7 @@ session;test1;test2;;
 experiment;SleepDeprivation;SleepDeprivation;;
 age;0;0;;
 sex;0;0;;
-iq;0;0;;
+results_file;Z:\08_Study_Sleep-deprivation\results\EEG_results;Z:\08_Study_Sleep-deprivation\results\EEG_results;;%% provide filepath and name in which the results should be stored for UiO_results. This should be the same for each subject / session since only ONE file will be created with all results inside (Subj X Session X Channels X Parameters)
 load_data;0;0;;%% if you want to load a specific already saved .mat file state here the name (e.g. 's101_s1_after_pca.mat')
 save_folder;Z:\08_Study_Sleep-deprivation\01_Data\analyzed_data\EEG\;Z:\08_Study_Sleep-deprivation\01_Data\analyzed_data\EEG\;;%% 0=save in the same folder as eeg-header file, else=save in the folder provided
 lftsource;0;0;;%% lead field matrix file of MRI
@@ -24,7 +24,7 @@ UiO_SWA;2;2;;
 UiO_save;3;3;;%%if you want to run a function several times, just add the indices after a comma
 UiO_plot;0;0;;
 UiO_summaryplot;0;0;;
-;;;;
+UiO_results;0;0;;"%% summarize SWA results in one 4D matrix for statistics (Do not use UiO_save afterwards!). THIS CAN NOT RUN IN ""parfor_eeganalysis.m"""
 ;;;;
 ;;;;
 ;;;;
