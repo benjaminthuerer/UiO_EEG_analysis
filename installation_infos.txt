@@ -1,4 +1,4 @@
-CAFEFUL: THIS IS A BETA VERSION AND STILL A WORK IN PROGRESS. MORE ADVANCED FUNCTIONS (e.g. Cluster-based-statistics, inverse-model) ARE STILL UNDER DEVELOPMENT!
+﻿CAFEFUL: THIS IS A BETA VERSION AND STILL A WORK IN PROGRESS. MORE ADVANCED FUNCTIONS (e.g. Cluster-based-statistics, inverse-model) ARE STILL UNDER DEVELOPMENT!
 
 Installation infos for UiO_EEG_analysis
 (this toolbox has been tested unter Windows 7 with Matlab 2017a)
@@ -15,7 +15,7 @@ In principle you only have to do the following:
 4.       Change the csvfile (it is in the privat folder!). Here you can determine all the functions which should be used and the detailed processings
 5.	 Make sure that in the csvfile the right data paths (e.g. of the .vhdr file) are provided
 6.	 Change in 'eeganalysis.m' the path to your current eeglab version!!!
-7.	 Run eeganalysis.m and provide the csvfile from which UiO_EEG_analysis should read the specific information
+7.	 Run eeganalysis.m (or parfo_eeganalysis.m for parallel computing) and provide the csvfile from which UiO_EEG_analysis should read the specific information
  
 Known problems, so far:
 1.       You are using a very old EEGlab version. Then you will have an error in the ‘pop_resample’ function. Please download newer version: https://sccn.ucsd.edu/eeglab/

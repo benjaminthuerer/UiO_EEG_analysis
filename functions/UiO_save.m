@@ -78,11 +78,9 @@ end
 %save in single to save space
 EEG.data = single(EEG.data);
 
-disp(['save file: ' save_name]);
-% EEG.data = single(EEG.data);
+disp(['try to save file: ' save_name]);
 save([save_file '.mat'],'EEG','-v7.3');
 save([save_loc '.mat'],'logFile');
-
-pause(0.1)
+disp(['saved file: ' save_name]);
 
 end

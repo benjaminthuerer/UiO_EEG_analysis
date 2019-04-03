@@ -18,7 +18,7 @@ function [EEGF,LOCF] = UiO_load_data(data_struct,subj_name,file_step,specific_na
 
 % create file and loc name
 if nargin < 4
-    load_name = [subj_name{1} '_' data_struct.session '_' file_step];
+    load_name = [subj_name{1} '_' data_struct.session '_' file_step '.mat'];
     loc_name = [subj_name{1} '_' data_struct.session '_logFile'];
     loc_error = 0;
 else
@@ -44,8 +44,8 @@ else
     else
         char_idx = strfind(data_struct.save_folder,'\');
     end
-    data_path = [data_struct.save_folder(1:char_idx(end))];
-    load_loc = [data_path subj_name{1} '\' data_struct.session '\' loc_name];
+    data_path = [data_struct.save_folder(1:char_idx(end)) subj_name{1} '\' data_struct.session '\'];
+    load_loc = [data_path loc_name];
 end
 
 disp(['load data: ' load_name]);
