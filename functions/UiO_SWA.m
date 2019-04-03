@@ -1,7 +1,29 @@
+% EEG-data processing for EEG-TMS combined
+% Consciousness Study Oslo
+% 
+% [EEG,logFile] = UiO_SWA(data_struct,subj_name,EEG,logFile)
+% 
+% data_struct: structure of the csv-file specified for subject and
+%               experiment
+% EEG: EEG structure of previous function. If empty [] this function will
+%       load the 'after_ica' data (if availeble)
+% subj_name: subject name according to csvfile
+% logFile: logFile of previous function. If empty [] this function will
+%       load the 'ica_cleaned' logFile (if available)
+%
+% This function will define markers from CSV file or marker prvided in EEG 
+% structure. Then it will call UiO_calc_SWA where slow-wave parameters 
+% and low-freq power will be computed. Finally, 'SWA_res' and 'SWA_header' 
+% will be added to the EEG structure containing a matrix with slow-wave
+% parameters for each channel.
+% 
+% by questions:
+% benjamin.thuerer@kit.edu
+
 function [EEG,logFile] = UiO_SWA(data_struct,subj_name,EEG,logFile)
 
 if nargin < 1
-    error('provide at least data_struct. See help UiO_preprocessing')
+    error('provide at least data_struct. See help UiO_SWA')
 end
 
 
