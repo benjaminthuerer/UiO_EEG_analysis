@@ -52,6 +52,7 @@ if exist(results_file, 'file') == 0
     RES = [];
     header = {};
     header.param = EEG.SWA_header;
+    header.chlocs = EEG.chanlocs;
     header.subj = containers.Map; % use container dictionary to track sessions
 else
     load(results_file);
