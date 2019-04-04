@@ -70,7 +70,7 @@ else
     SW_amplitude = str2double(data_struct.SW_amplitude);
 end
 
-[number, duration, ptp_amp, numb_pos, numb_neg, power] = UiO_calc_SWA(EEG, epoch_length, marker, SW_length, SW_amplitude);
+[EEG, number, duration, ptp_amp, numb_pos, numb_neg, power] = UiO_calc_SWA(EEG, epoch_length, marker, SW_length, SW_amplitude);
 
 results = [number, duration, ptp_amp, numb_pos, numb_neg, power];
 results_header = ["number", "duration", "ptp_amp", "numb_pos", "numb_neg", "power"];

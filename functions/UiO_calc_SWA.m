@@ -14,7 +14,7 @@
 % 6: calculate parameters
 
 %% what about SWsaturation?
-function [number, duration, ptp_amp, numb_pos, numb_neg, power] = UiO_calc_SWA(EEG, epoch_length, marker, SW_length, SW_amplitude)
+function [EEG, number, duration, ptp_amp, numb_pos, numb_neg, power] = UiO_calc_SWA(EEG, epoch_length, marker, SW_length, SW_amplitude)
 
 % find indices of mastoid channels and reref to the average mastoid
 ind_M1 = strcmp({EEG.chanlocs.labels},"TP9");
