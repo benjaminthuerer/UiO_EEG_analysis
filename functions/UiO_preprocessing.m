@@ -23,7 +23,7 @@
 % 7: rereference to the average
 % 8: remove line noise (cleanline)
 % 
-% by questions:
+% for questions:
 % benjamin.thuerer@kit.edu
 % 
 function [EEG,logFile] = UiO_preprocessing(data_struct,subj_name,EEG,logFile)
@@ -603,10 +603,6 @@ elseif str2double(data_struct.cleaning_artifacts) > 1
     warning('no correct cleaning artifacts type provided. No cleaning is done!')
 end
 
-%store removed channels
-EEG.CHremoved = [];
-EEG.CHremoved = setdiff({chLocs.labels},{EEG.chanlocs.labels}); 
-
 %% 6. interpolate bad channels
 
 %check if an additional channel should be interpolated (according to CSV)
@@ -616,6 +612,9 @@ if str2double(data_struct.add_channel) ~= 0
     chLocs = pop_chanedit(chLocs, 'lookup','Standard-10-5-Cap385_witheog.elp');
 end
 
+%store removed and interpolated channels
+EEG.CHremoved = [];
+EEG.CHremoved = setdiff({chLocs.labels},{EEG.chanlocs.labels}); 
 EEG = pop_interp(EEG, chLocs,'spherical'); %interpolate removed channels
 
 % remove mean over channel

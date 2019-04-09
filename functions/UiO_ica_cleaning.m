@@ -16,7 +16,7 @@
 % for ICs as the automized method works not very good.
 % ICA cleaning works on both, continous and epoched data.
 % 
-% by questions:
+% for questions:
 % benjamin.thuerer@kit.edu
 %
 function [EEG,logFile] = UiO_ica_cleaning(data_struct,subj_name,EEG,logFile)
@@ -172,7 +172,7 @@ else
 end
 
 % reject bad components on single trial or continous data
-decompProj = EEG.icawinv(:, goodICs)*eeg_getdatact(EEG, 'component', goodICs, 'reshape', '2d');
+decompProj = EEG.icawinv(:, goodICs) * eeg_getdatact(EEG, 'component', goodICs, 'reshape', '2d');
 
 if ndims(decompProj) == 3
     decompProj = reshape(decompProj,size(decompProj,1),EEG.pnts,EEG.trials);
@@ -214,9 +214,10 @@ end
 
 disp([num2str(length(badICs)) ' ICs rejected']);
 
+EEG.badICs = badICs;
+
 % clean up a bit
 EEG.nbchan = size(EEG.data,1);
-
 
 % loc file entry
 logFile{end+1} = {'ica_cleaned',['data is cleaned by ICA. In total ' num2str(length(badICs)) ...

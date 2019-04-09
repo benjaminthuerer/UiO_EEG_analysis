@@ -16,11 +16,11 @@
 % a .csv file with the first column containing subject IDs and the second
 % column containing group IDs
 % 
-% by questions:
+% for questions:
 % benjamin.thuerer@kit.edu
 %
 
-function UiO_cluster_statistics(time_window, frequency, perm_s,sessions)
+function UiO_cluster_statistics(time_window, frequency, perm_s, sessions)
 
 % set folder
 %folderpath = uigetdir('','choose the folder with the EEG data');

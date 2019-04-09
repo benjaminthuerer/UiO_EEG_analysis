@@ -13,7 +13,7 @@
 %
 % This function will epoch the continous data into trials and remove bad
 % 
-% by questions:
+% for questions:
 % benjamin.thuerer@kit.edu
 % 
 function [EEG,logFile] = UiO_trials(data_struct,subj_name,EEG,logFile)

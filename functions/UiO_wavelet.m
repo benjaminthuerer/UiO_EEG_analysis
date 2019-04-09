@@ -18,7 +18,7 @@
 % However, please make shure that epoch length are not too short. Otherwise
 % edge artifacts may occur.
 % 
-% by questions:
+% for questions:
 % benjamin.thuerer@kit.edu
 %
 

@@ -1,7 +1,7 @@
 %EEGANALYSIS Main analysis script. Calls stuff
 %and reads stuff.
 % 
-% by questions:
+% for questions:
 % b.e.juel@medisin.uio.no
 % sevenius.nilsen@gmail.com
 % benjamin.thuerer@kit.edu

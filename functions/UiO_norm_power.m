@@ -15,7 +15,7 @@
 % to a baseline period (set in csv-file). Several options of normalization
 % are possible: (1) ERD/ERS, (2) db, (3)
 % 
-% by questions:
+% for questions:
 % benjamin.thuerer@kit.edu
 %
 

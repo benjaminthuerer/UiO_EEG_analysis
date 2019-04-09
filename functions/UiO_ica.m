@@ -16,7 +16,7 @@
 % double-data. Please make sure that eeglab is running in double-precision
 % mode: eeglab-->memory options
 % 
-% by questions:
+% for questions:
 % benjamin.thuerer@kit.edu
 %
 function [EEG,logFile] = UiO_ica(data_struct,subj_name,EEG,logFile)
@@ -43,12 +43,19 @@ if isfield(EEG,'lastPC')
     lastPC = EEG.lastPC;
     if lastPC > rankIDX
         lastPC = rankIDX;
-        dsip(['Rank violation: reducing ICA to ' num2str(rank) ' components']);
+        disp(['Rank violation: reducing ICA to ' num2str(rankIDX) ' components']);
+    end
+    EEG = pop_runica(EEG,'pca',lastPC,'extended',1,'interupt','on');
+elseif ~isempty(EEG.CHremoved)
+    lastPC = EEG.nbchan - length(EEG.CHremoved);
+    if lastPC > rankIDX
+        lastPC = rankIDX;
+        disp(['Rank violation: reducing ICA to ' num2str(rankIDX) ' components']);
     end
     EEG = pop_runica(EEG,'pca',lastPC,'extended',1,'interupt','on');
 else
     if rankIDX < size(EEG.data,1)
-        dsip(['Rank violation: reducing ICA to ' num2str(rank) ' components']);
+        disp(['Rank violation: reducing ICA to ' num2str(rankIDX) ' components']);
         EEG = pop_runica(EEG,'pca',rankIDX,'extended',1,'interupt','on');
     else
         EEG = pop_runica(EEG,'extended',1,'interupt','on');

@@ -14,7 +14,7 @@
 % (save_folder)
 % 
 %
-% by questions:
+% for questions:
 % benjamin.thuerer@kit.edu
 % 
 function [EEG,logFile] = UiO_save(data_struct,subj_name,EEG,logFile)

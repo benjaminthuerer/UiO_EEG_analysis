@@ -17,7 +17,7 @@
 % will be added to the EEG structure containing a matrix with slow-wave
 % parameters for each channel.
 % 
-% by questions:
+% for questions:
 % benjamin.thuerer@kit.edu
 
 function [EEG,logFile] = UiO_SWA(data_struct,subj_name,EEG,logFile)

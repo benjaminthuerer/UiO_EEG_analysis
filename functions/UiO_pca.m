@@ -14,7 +14,7 @@
 % This function will compress the data to 99% of explained variance. This
 % step is important for later ICA-analysis
 % 
-% by questions:
+% for questions:
 % benjamin.thuerer@kit.edu
 % 
 function [EEG,logFile] = UiO_pca(data_struct,subj_name,EEG,logFile)
@@ -46,18 +46,18 @@ ZeroData = bsxfun(@minus,ObsData,mean(ObsData,2));
 [VecData,ValData] = svd(ZeroData); %single vectors and single values
 ValData = diag(ValData*ValData'); %reak single values
 
-% decompress to 99.9% of the variance
+% decompress to 99.9999% of the variance
 perVar = ones(1,size(ValData,1));
 k = 100;
 i = size(ValData,1);
-while k > 99.99
+while k > 99.9999
     k = (sum(ValData(1:i))/sum(ValData(:)))*100;
     i = i-1;
 end
 
 EEG.lastPC = i+1;
 
-% keep the 99.9% components and multiply them with the original data
+% keep the 99.9999% components and multiply them with the original data
 % then decompress the data
 PostPCAData = VecData(:,1:EEG.lastPC)' * ZeroData;
 DecompData = (PostPCAData' * VecData(:,1:EEG.lastPC)')';

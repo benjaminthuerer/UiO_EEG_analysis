@@ -16,7 +16,7 @@
 % independent of SWA). Afterwards it stores everything in this matrix
 % again.
 % 
-% for questions:
+% by questions:
 % benjamin.thuerer@kit.edu
 
 function [EEG,logFile] = UiO_results(data_struct,subj_name,EEG,logFile)
@@ -52,7 +52,6 @@ if exist(results_file, 'file') == 0
     RES = [];
     header = {};
     header.param = EEG.SWA_header;
-    header.chlocs = EEG.chanlocs;
     header.subj = containers.Map; % use container dictionary to track sessions
 else
     load(results_file);
@@ -62,17 +61,17 @@ end
 % add individual results (EEG.SWA_res) to overall RES matrix
 % RES is 4D: subject, session, channel, parameter
 [ch, par] = size(EEG.SWA_res);
-if sum(strcmp(keys(header.subj),subj_name{1})) == 0
+if sum(strcmp(keys(header.subj),subj_name)) == 0
     RES(end+1, 1, 1:ch, 1:par) = EEG.SWA_res; 
 else
     v = values(header.subj);
-    RES(end, v{strcmp(keys(header.subj),subj_name{1})}+1, 1:ch, 1:par) = EEG.SWA_res;
+    RES(end, v{strcmp(keys(header.subj),subj_name)}, 1:ch, 1:par) = EEG.SWA_res;
 end
 
-if sum(strcmp(keys(header.subj),subj_name{1})) == 0
-    header.subj(subj_name{1}) = 1;
+if sum(strcmp(keys(header.subj),subj_name)) == 0
+    header.subj(subj_name) = 1;
 else
-    header.subj(subj_name{1}) = header.subj(subj_name{1}) + 1;
+    header.subj(subj_name) = header.subj(subj_name) + 1;
 end
 
 % create header to store subj_name
