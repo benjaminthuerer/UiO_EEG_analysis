@@ -14,17 +14,17 @@ UiO_preprocessing;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;
 UiO_trials;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;;;;;
 UiO_pca;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;;;;;%% stores the number of components explaining 99.99% of the variance (used for later ICA)
 UiO_ica;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;;;;;
-UiO_ica_cleaning;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;;;;;;
+UiO_ica_cleaning;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;;;;;
 UiO_wavelet;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;;;;;
 UiO_norm_power;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;;;;;
 UiO_inverse_model;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;;;;;
 UiO_connectivity;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;;;;;
 UiO_pci;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;;;;;
-UiO_SWA;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;;;;;;
-UiO_save;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;;;;;;%%if you want to run a function several times, just add the indices after a comma
+UiO_SWA;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;;;;;
+UiO_save;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;;;;;%%if you want to run a function several times, just add the indices after a comma
 UiO_plot;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;;;;;
 UiO_summaryplot;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;;;;;
-UiO_results;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;4;;;;;;"%% summarize SWA results in one 4D matrix for statistics. THIS CAN NOT RUN IN ""parfor_eeganalysis.m"""
+UiO_results;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;;;;;;"%% summarize SWA results in one 4D matrix for statistics. THIS CAN NOT RUN IN ""parfor_eeganalysis.m"""
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -54,10 +54,10 @@ plot_always;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;;
 %%Switch channels;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 switch_channels;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;;;;;"%Do you want to switch channel locations? 0 = no; 1 = yes"
 switch_names;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;AF8, FCz, AF7, AFz;;;;;;% state the channels. First channel which should be replaced by the second channel (eg., AF8, FCz, AF7, Afz)
-add_channel;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;Pz;Pz;Pz;Pz;Pz;Pz;Pz;Pz;Pz;0;0;0;0;;;;;;% Adds channel location for later interpolation (e.g. Pz). Or does not add any channel (e.g. 0)
+add_channel;FC4, CP3, CP2;0;0;Fp2;AF4, CP4;0;0;0;0;0;0;0;C1, Cz;C1, Cz;C1, Cz;C1, Cz;C1, Cz;C1, Cz, CP1, Fz, Fp2;C1, Cz, CP1, Fz, Fp2, Fp1, Fpz;C1, Cz, CP1, Fz, Fp2, Fp1, Fpz;Pz;Pz;Pz;Pz;Pz;Pz;Pz;Pz, CP3, TP7, C5, T7;Pz;0;0;0;0;;;;;;% Adds channel location for later interpolation (e.g. Pz). Or does not add any channel (e.g. 0)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 %%Remove channels;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-remove_channels;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1, Pz;EMG1, Pz;EMG1, Pz;EMG1, Pz;EMG1, Pz;EMG1, Pz;EMG1, Pz;EMG1, Pz;EMG1, Pz;EMG1;EMG1;EMG1;EMG1;;;;;;"%Do you want to remove channels from analysis (EMG?)? 0 = no; state channels (eg. EMGh, EMGn) = otherwise"
+remove_channels;EMG1, FC4, CP3, CP2;EMG1;EMG1;EMG1, Fp2;EMG1, AF4, CP4;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1;EMG1, C1, Cz;EMG1, C1, Cz;EMG1, C1, Cz;EMG1, C1, Cz;EMG1, C1, Cz;EMG1, C1, Cz, CP1, Fz, Fp2;EMG1, C1, Cz, CP1, Fz, Fp2, Fp1, Fpz;EMG1, C1, Cz, CP1, Fz, Fp2, Fp1, Fpz;EMG1, Pz;EMG1, Pz;EMG1, Pz;EMG1, Pz;EMG1, Pz;EMG1, Pz;EMG1, Pz;EMG1, Pz, CP3, TP7, C5, T7;EMG1, Pz;EMG1;EMG1;EMG1;EMG1;;;;;;"%Do you want to remove channels from analysis (EMG?)? 0 = no; state channels (eg. EMGh, EMGn) = otherwise"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 %%PCI;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 baseline_sources;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;200;;;;;;%%baseline length for inverse model and bootstraping

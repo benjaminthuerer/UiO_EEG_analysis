@@ -119,22 +119,7 @@ end
 if str2double(data_struct.remove_channels) == 0
     disp('No channels removed from analysis');
 else
-    ChanIndx_s = strfind(data_struct.remove_channels,',');
-    ChannelNames = {};
-    for i = 1:length(ChanIndx_s)+1
-        if i == 1
-            startIdx = 1;
-        else
-            startIdx = ChanIndx_s(i-1)+1;
-        end
-        if i == length(ChanIndx_s)+1
-            endIdx = length(data_struct.remove_channels);
-        else
-            endIdx = ChanIndx_s(i)-1;
-        end
-        ChannelNames{i} = data_struct.remove_channels(startIdx:endIdx);
-    end
-    ChannelNames = regexprep(ChannelNames, '\W', '');
+    [ChannelNames] = UiO_getNames(data_struct.remove_channels);
     idx_rmv = ismember(upper({EEG.chanlocs.labels}),upper(ChannelNames));
     EEG.data(idx_rmv,:) = [];
     EEG.chanlocs(idx_rmv) = [];
@@ -608,7 +593,10 @@ end
 %check if an additional channel should be interpolated (according to CSV)
 if str2double(data_struct.add_channel) ~= 0
     disp(['Add channel ' data_struct.add_channel ' for interpolation']);
-    chLocs(end+1).labels = data_struct.add_channel;
+    [ChannelNames] = UiO_getNames(data_struct.add_channel);
+    for i = 1:length(ChannelNames)
+        chLocs(end+1).labels = ChannelNames{i};
+    end
     chLocs = pop_chanedit(chLocs, 'lookup','Standard-10-5-Cap385_witheog.elp');
 end
 
@@ -751,4 +739,27 @@ else
     LNFreq = str2double(data_struct.linenoise_frequency);
 end
 
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This function will get the channel names to be removed or added
+
+function [ChannelNames] = UiO_getNames(list_channels)
+ChanIndx_s = strfind(list_channels,',');
+ChannelNames = {};
+for i = 1:length(ChanIndx_s)+1
+    if i == 1
+        startIdx = 1;
+    else
+        startIdx = ChanIndx_s(i-1)+1;
+    end
+    if i == length(ChanIndx_s)+1
+        endIdx = length(list_channels);
+    else
+        endIdx = ChanIndx_s(i)-1;
+    end
+    ChannelNames{i} = list_channels(startIdx:endIdx);
+end
+
+ChannelNames = regexprep(ChannelNames, '\W', '');
 end

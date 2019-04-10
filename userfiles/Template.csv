@@ -12,7 +12,7 @@ vhdrsource;Z:\08_Study_Sleep-deprivation\01_Data\EEG_data\sd1022\sleep_sd1022_te
 UiO_TMS_correction;0;0;;
 UiO_preprocessing;1;1;;
 UiO_trials;0;0;;
-UiO_pca;0;0;;
+UiO_pca;0;0;;%% stores the number of components explaining 99.99% of the variance (used for later ICA)
 UiO_ica;0;0;;
 UiO_ica_cleaning;0;0;;
 UiO_wavelet;0;0;;

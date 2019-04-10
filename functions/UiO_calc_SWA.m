@@ -54,6 +54,7 @@ start_mark = end_mark - epoch_length*1000;
 [~,idx_end] = min(abs(EEG.times-end_mark));
 EEG.data = EEG.data(:,idx_start:idx_end-1);
 EEG.times = EEG.times(idx_start:idx_end-1);
+EEG.pnts = size(EEG.data,2);
 
 % center data
 EEG.data = bsxfun(@minus,EEG.data,mean(EEG.data,2));
