@@ -23,7 +23,7 @@ n = 5000;
 [P_map, O_map] = permutationTest(mData, groupA, groupB, n, 0, 1);
 
 % topoplot grids of P-values
-[~,topo_P] = topoplot(P_map, chanlocs, 'noplot', 'on');
+[~,topo_P] = topoplot(P_map, chanlocs, 'noplot', 'on', 'conv', 'on');
 
 % topoplot grids of observed differences
 [~,topo_O,plotrad,xmesh,ymesh] = topoplot(O_map, chanlocs, 'noplot', 'on');
@@ -60,7 +60,7 @@ if ~isempty(clustsum_obs)
         [permP_map, permO_map] = permutationTest(permData, groupA, groupB, n, 0, 1);
 
            % topoplot grids of P-values
-        [~,perm_P] = topoplot(permP_map,chanlocs,'noplot','on');
+        [~,perm_P] = topoplot(permP_map,chanlocs,'noplot','on', 'conv', 'on');
 
         % topoplot grids of F-values
         [~,perm_O] = topoplot(permO_map,chanlocs,'noplot','on');
@@ -89,7 +89,6 @@ if ~isempty(clustsum_obs)
     stat_cluster = sum(repmat(abs(max_perm)',1,length(clustsum_obs)) > repmat(clustsum_obs,length(max_perm),1), 1) / perm_s;
 else
     stat_cluster = [];
-    disp('no significant observed cluster');
 end
 
 % start plotting
@@ -108,7 +107,11 @@ if find(stat_cluster)
     h = figure;
     toporeplot(combi,'plotrad',plotrad,'xsurface',xmesh,'ysurface',ymesh,'chanlocs',chanlocs,'electrodes','on','headrad',0.54,'style','map');
     set(gca,'clim',[0 12]);
-    title(['difference between datasets']);
+    if isempty(idx)
+        title('observed difference: no sign clusters')
+    else
+        title(['observed difference: significant cluster']);
+    end
 else
     disp('no significant clusters');
 end

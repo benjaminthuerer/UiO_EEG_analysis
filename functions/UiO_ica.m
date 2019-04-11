@@ -29,7 +29,7 @@ end
 % check if EEG structure is provided. If not, load previous data
 if isempty(EEG)
     if str2double(data_struct.load_data) == 0
-        [EEG,logFile] = UiO_load_data(data_struct,subj_name,'after_pca');   
+        [EEG,logFile] = UiO_load_data(data_struct,subj_name,'preprocessed');   
     else
         [EEG,logFile] = UiO_load_data(data_struct,subj_name,[],'specific_data');
     end

@@ -608,6 +608,11 @@ EEG = pop_interp(EEG, chLocs,'spherical'); %interpolate removed channels
 % remove mean over channel
 EEG.data = bsxfun(@minus,EEG.data,mean(EEG.data,2));
 
+% sort channel locations and data to prevent mix-up
+[~,s] = sort({EEG.chanlocs.labels});
+EEG.chanlocs = EEG.chanlocs(s);
+EEG.data = EEG.data(s,:);
+
 %% 7. re-reference the data either to a channel or average
 if isempty(str2num(data_struct.re_referencing))
     ChNum = strcmp({EEG.chanlocs.labels},data_struct.re_referencing);

@@ -20,10 +20,10 @@ if nargin < 4
 end
 
 n = 5000;
-[P_map, O_map] = permutationTest(mData, groupA, groupB, n, 1, 1);
+[P_map, O_map] = permutationTest(mData, groupA, groupB, n, 0, 1);
 
 % topoplot grids of P-values
-[~,topo_P] = topoplot(P_map, chanlocs, 'noplot', 'on');
+[~,topo_P] = topoplot(P_map, chanlocs, 'noplot', 'on', 'conv', 'on');
 
 % topoplot grids of observed differences
 [~,topo_O,plotrad,xmesh,ymesh] = topoplot(O_map, chanlocs, 'noplot', 'on');
@@ -57,10 +57,10 @@ if ~isempty(clustsum_obs)
     while perm_i <= perm_s
         rpt = randperm(n_set);
         permData = perm_set(rpt,:);
-        [permP_map, permO_map] = permutationTest(permData, groupA, groupB, n, 1, 1);
+        [permP_map, permO_map] = permutationTest(permData, groupA, groupB, n, 0, 1);
 
            % topoplot grids of P-values
-        [~,perm_P] = topoplot(permP_map,chanlocs,'noplot','on');
+        [~,perm_P] = topoplot(permP_map,chanlocs,'noplot','on', 'conv', 'on');
 
         % topoplot grids of F-values
         [~,perm_O] = topoplot(permO_map,chanlocs,'noplot','on');

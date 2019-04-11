@@ -41,10 +41,10 @@ end
 sizeInfo = size(mData);
 
 if sizeInfo(1) == 1 || sizeInfo(2) == 1
-    obsDiff = nanmedian(mData(groupA))-nanmedian(mData(groupB));
+    obsDiff = nanmedian(mData(groupA)) - nanmedian(mData(groupB));
     singlePermutation = 1;
 else
-    obsDiff = nanmedian(mData(groupA,:))-nanmedian(mData(groupB,:));
+    obsDiff = nanmedian(mData(groupA,:)) - nanmedian(mData(groupB,:));
     singlePermutation = 0;
 end
 
@@ -57,17 +57,17 @@ while i < n+1
         permI = randperm(length(mData));
         permA = permI(1:length(groupA));
         permB = permI(length(groupA)+1:end);  
-        permDiff(i) = nanmedian(mData(permA))-nanmedian(mData(permB));
+        permDiff(i) = nanmedian(mData(permA)) - nanmedian(mData(permB));
     elseif singlePermutation == 0 && correction == 1
         permI = randperm(size(mData,1));
         permA = permI(1:length(groupA));
         permB = permI(length(groupA)+1:end); 
-        permDiff(i) = max(abs(nanmedian(mData(permA,:),1)-nanmedian(mData(permB,:),1)));
+        permDiff(i) = max(abs(nanmedian(mData(permA,:),1) - nanmedian(mData(permB,:),1)));
     else
         permI = randperm(size(mData,1));
         permA = permI(1:length(groupA));
         permB = permI(length(groupA)+1:end); 
-        permDiff(i,:) = nanmedian(mData(permA,:),1)-nanmedian(mData(permB,:),1);
+        permDiff(i,:) = nanmedian(mData(permA,:),1) - nanmedian(mData(permB,:),1);
     end
     if ~isempty(find(percentages == i)) && cluster == 0
         disp([num2str(percentages2(percentages == i)) ' % done']);
@@ -84,7 +84,7 @@ else
 end
 
 if singlePermutation == 0
-    permDiff = sort(reshape(permDiff,1,numel(permDiff)));
+    permDiff = sort(reshape(permDiff, 1, numel(permDiff)));
 end
 ciThresh = [permDiff(round(n/100*2.5)),permDiff(round(n/100*97.5))];
 medianThresh = nanmedian(permDiff);
