@@ -106,13 +106,16 @@ if find(stat_cluster)
     combi = squeeze(sum(combi,1));
     h = figure;
     toporeplot(combi,'plotrad',plotrad,'xsurface',xmesh,'ysurface',ymesh,'chanlocs',chanlocs,'electrodes','on','headrad',0.54,'style','map');
-    set(gca,'clim',[0 12]);
+    %set(gca,'clim',[0 12]);
     if isempty(idx)
-        title('observed difference: no sign clusters')
+        title('observed difference: no sign clusters');
     else
         title(['observed difference: significant cluster']);
     end
 else
+    h = figure;
+    toporeplot(topo_O,'plotrad',plotrad,'xsurface',xmesh,'ysurface',ymesh,'chanlocs',chanlocs,'electrodes','on','headrad',0.54,'style','map');
+    title('observed difference: no sign clusters');
     disp('no significant clusters');
 end
 

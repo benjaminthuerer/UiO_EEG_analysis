@@ -61,10 +61,10 @@ EEG.data = bsxfun(@minus,EEG.data,mean(EEG.data,2));
 
 %% compute normalized power in db (this requires computed baseline)
 
-% path = 'Z:\08_Study_Sleep-deprivation\results\EEG_results';
-% load([path '_mean_baseline.mat'])
-% EEG.data = 10*log10(EEG.data./repmat(baseline,1,size(EEG.data,2)));
-% norm_method = 'db';
+path = 'Z:\08_Study_Sleep-deprivation\results\EEG_results';
+load([path '_mean_baseline.mat'])
+EEG.data = 10*log10(EEG.data./repmat(baseline,1,size(EEG.data,2)));
+norm_method = 'db';
 
 %%
 
@@ -144,20 +144,15 @@ end
 
 %% compute LZ power
 epoch = EEG.srate * 2;
-MLZ = [];
-for i = 1:floor(length(EEG.times)/epoch)
-    LZdata = EEG.data(:,(i-1)*epoch+1:i*epoch);
-    LZdata = LZdata.^2;
-    LZdata = LZdata > median(median(LZdata));
+for i = 1:length(EEG.times)/epoch
+    0+(i-1)*epoch+1:i*epoch
+    LZdata = EEG.data(i
+    LZdata = EEG.data.^2;
+    LZdata = LZdata > meadian(median(LZdata));
     SSsum = sum(LZdata,2);
     [~,index] = sort(SSsum);
     LZdata = LZdata(index,:);
-    
-    MLZ(i) = UiO_calc_lz_complexity(LZdata(:), 'exhaustive', 1);
-    disp(['LZ: ' num2str(MLZ(i))]);
-end
-
-EEG.LZ = mean(MLZ);
-
+    EEG.LZ = UiO_calc_lz_complexity(LZdata(:), 'exhaustive', 1);
+ 
 end
 

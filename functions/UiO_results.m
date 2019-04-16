@@ -50,12 +50,14 @@ if exist(results_file, 'file') == 0
         mkdir(filepath)
     end
     RES = [];
+    LZ = [];
     header = {};
     header.param = EEG.SWA_header;
     header.chlocs = EEG.chanlocs;
     header.subj = containers.Map; % use container dictionary to track sessions
 else
     load(results_file);
+    load([results_file(1:end-4) '_LZ.mat']);
     load([results_file(1:end-4) '_header.mat']);
 end
 
@@ -64,9 +66,11 @@ end
 [ch, par] = size(EEG.SWA_res);
 if sum(strcmp(keys(header.subj),subj_name{1})) == 0
     RES(end+1, 1, 1:ch, 1:par) = EEG.SWA_res; 
+    LZ(end+1, 1, 1) = EEG.LZ;
 else
     v = values(header.subj);
     RES(end, v{strcmp(keys(header.subj),subj_name{1})}+1, 1:ch, 1:par) = EEG.SWA_res;
+    LZ(end, v{strcmp(keys(header.subj),subj_name{1})}+1, 1) = EEG.LZ;
 end
 
 if sum(strcmp(keys(header.subj),subj_name{1})) == 0
@@ -78,6 +82,7 @@ end
 % create header to store subj_name
 disp('save results and header')
 save(results_file,'RES','-v7.3');
+save([results_file(1:end-4) '_LZ.mat'],'LZ','-v7.3');
 save([results_file(1:end-4) '_header.mat'],'header','-v7.3');
 
 end

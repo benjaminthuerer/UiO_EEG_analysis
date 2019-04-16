@@ -174,8 +174,8 @@ gs(2) = 1;  % By definition.  Remember: gs(2) in MATLAB is actually gs(1)
             % due to the first element of the gs array holding the
             % eigenvalue for n = 0.
             
-t_i = length(S);
-t = 0:floor(t_i/10):t_i;
+percentages = length(S)/10:length(S)/10:length(S);
+percentages2 = 10:10:100;
 n = 2;
 while n <= length(S)
     
@@ -252,8 +252,8 @@ while n <= length(S)
         % Raise an error - something is not right!
         error('Internal error: could not find eigenvalue');
     end
-    if find(n==t)
-        fprintf([' ' int2str(100/t_i*n+1) '%% processed \n']);
+    if find(n==percentages)
+        fprintf([' ' int2str(percentages2(percentages == n)) '%% processed \n']);
     end
     n = n+1;
 end
