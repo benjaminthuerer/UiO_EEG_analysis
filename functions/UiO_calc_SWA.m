@@ -59,12 +59,7 @@ EEG.pnts = size(EEG.data,2);
 % center data
 EEG.data = bsxfun(@minus,EEG.data,mean(EEG.data,2));
 
-%% compute normalized power in db (this requires computed baseline)
 
-% path = 'Z:\08_Study_Sleep-deprivation\results\EEG_results';
-% load([path '_mean_baseline.mat'])
-% EEG.data = 10*log10(EEG.data./repmat(baseline,1,size(EEG.data,2)));
-% norm_method = 'db';
 
 %%
 
@@ -76,7 +71,6 @@ duration = zeros(size(EEG.data,1),1);
 ptp_amp = zeros(size(EEG.data,1),1);
 numb_pos = zeros(size(EEG.data,1),1);
 numb_neg = zeros(size(EEG.data,1),1);
-power = zeros(size(EEG.data,1),1);
 num_iterations = 0;
 sign_data = diff(sign(EEG.data),[],2);
 
@@ -139,11 +133,19 @@ for chan_i = 1:size(EEG.data,1)
     [ptp_amp(chan_i)] = nanmean(slow_waves(chan_i).amplitude);
     [numb_pos(chan_i)] = nanmean(slow_waves(chan_i).pos_peaks);
     [numb_neg(chan_i)] = nanmean(slow_waves(chan_i).neg_peaks);
-    [power(chan_i)] = nanmean(EEG.data(chan_i,:).^2,2);
 end
 
+    
+% compute normalized power in db (this requires computed baseline)
+path = 'Z:\08_Study_Sleep-deprivation\results\EEG_results';
+load([path '_mean_baseline.mat'])
+EEG.data = EEG.data.^2;
+EEG.data = 10*log10(EEG.data./repmat(baseline',1,size(EEG.data,2)));
+norm_method = 'db';
+[power] = nanmean(EEG.data,2);
+
 %% compute LZ power
-epoch = EEG.srate * 2;
+epoch = EEG.srate * 8; %THIS IS HARD CODED : 8 sec!!!!!!!!!!!!!!
 MLZ = [];
 for i = 1:floor(length(EEG.times)/epoch)
     LZdata = EEG.data(:,(i-1)*epoch+1:i*epoch);
